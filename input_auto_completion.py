@@ -1,5 +1,5 @@
 import csv
-
+import os
 # Trie 노드 정의
 class TrieNode:
     def __init__(self):
@@ -94,6 +94,6 @@ def autocomplete(trie, prefix, top_k=5):
 
 csv_path = r"unigram_freq.csv"  # 실제 파일 경로
 trie = build_trie_from_csv(csv_path)
-
-print(autocomplete(trie, "app", top_k=3))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+print(autocomplete(trie, "happ", top_k=3))
 print("hi")
