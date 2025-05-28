@@ -65,32 +65,33 @@ def heap_sort(arr):
 # autocomplete 함수 수정
 import heapq
 
-def autocomplete(trie, prefix, top_k=5):
+def autocomplete(trie, prefix, top_k=5, max_depth=10):
     node = trie.root
     for char in prefix:
         if char not in node.children:
             return []
         node = node.children[char]
 
-    heap = []  # min-heap 크기 최대 top_k 유지, (freq, word)
+    heap = []  # min-heap (freq, word)
 
-    def dfs(node, path):
+    def dfs(node, path, depth):
+        if depth > max_depth:
+            return
         if node.is_end:
             if len(heap) < top_k:
                 heapq.heappush(heap, (node.freq, path))
             else:
-                # 빈도가 현재 heap 최소값보다 크면 교체
                 if node.freq > heap[0][0]:
                     heapq.heapreplace(heap, (node.freq, path))
 
         for c, child in node.children.items():
-            dfs(child, path + c)
+            dfs(child, path + c, depth + 1)
 
-    dfs(node, prefix)
+    dfs(node, prefix, 0)
 
-    # 빈도 높은 순으로 정렬
     result = sorted(heap, key=lambda x: x[0], reverse=True)
     return [(word, freq) for freq, word in result]
+
 
 
 csv_path = r"unigram_freq.csv"  # 실제 파일 경로
