@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>입력 자동완성 프로그램</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    .warning {
+      color: red;
+      margin-top: 5px;
+      font-weight: bold;
+    }
+    .suggestions li.active {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="title">입력 자동완성 프로그램</div>
+    <form id="searchForm">
+      <div class="field">
+        <input type="text" name="q" id="autocomplete-input" required autocomplete="off">
+        <label>검색할 단어를 입력하세요</label>
+        <ul id="suggestions-list" class="suggestions"></ul>
+        <div id="warning" class="warning"></div>
+      </div>
+    </form>
+
+    <script>
+      const input = document.getElementById('autocomplete-input');
+      const suggestionsList = document.getElementById('suggestions-list');
+      const warning = document.getElementById('warning');
+      let suggestions = [];
+      let activeIndex = -1;
+
+      input.addEventListener('input', async function () {
+        const fullText = this.value.trim();
+        const lastWord = fullText.split(' ').pop();
+
+        if (lastWord === '') {
+          suggestionsList.innerHTML = '';
+          return;
+        }
+
+        try {
+          const response = await fetch(`/autocomplete?prefix=${encodeURIComponent(lastWord)}`);
+          if (!response.ok) throw new Error('Network response was not ok');
+          suggestions = await response.json();
+        } catch (error) {
+          console.error('Autocomplete fetch error:', error);
+          suggestions = [];
+        }
+
+        // UI 업데이트
+        suggestionsList.innerHTML = '';
+        activeIndex = -1;
+
+        suggestions.forEach((word, index) => {
+          const li = document.createElement('li');
+          li.textContent = word;
+          li.onclick = () => {
+            updateInputValue(word);
+          };
+          suggestionsList.appendChild(li);
+        });
+      });
+
+      input.addEventListener('keydown', function (e) {
+        const items = suggestionsList.getElementsByTagName('li');
+
+        if (e.key === 'Tab') {
+          e.preventDefault();
+          if (items.length === 0) return;
+          activeIndex = (activeIndex + 1) % items.length;
+          updateActiveItem(items);
+        }
+
+        if (e.key === 'Enter') {
+          if (activeIndex >= 0) {
+            e.preventDefault();
+            updateInputValue(items[activeIndex].textContent);
+          }
+          // activeIndex < 0 이면 아무 것도 막지 않아서 폼 제출 가능
+        }
+      });
+
+      function updateActiveItem(items) {
+        for (let i = 0; i < items.length; i++) {
+          items[i].classList.toggle('active', i === activeIndex);
+        }
+      }
+
+      function updateInputValue(selectedWord) {
+        const parts = input.value.trim().split(' ');
+        parts[parts.length - 1] = selectedWord;
+        input.value = parts.join(' ') + ' ';
+        suggestionsList.innerHTML = '';
+        activeIndex = -1;
+      }
+
+      const form = document.getElementById('searchForm');
+      form.addEventListener('submit', function(e) {
+        e.preventDefault(); // 기본 제출 막기
+        const query = input.value.trim();
+        if (query) {
+          const googleURL = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+          window.location.href = googleURL;
+        }
+      });
+    </script>
+  </div>
+</body>
+</html>
