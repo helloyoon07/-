@@ -172,6 +172,7 @@ form .signup-link a:hover {
   html,
   body {
     font-size: clamp(15px, 4vw, 18px);
+    background-color: lightblue;
     /* 모바일은 기준 폰트 좀 키움 */
   }
 
