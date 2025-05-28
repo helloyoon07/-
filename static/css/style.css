@@ -166,3 +166,69 @@ form .signup-link a:hover {
 .suggestions li.active {
   background-color: #f0f0f0;
 }
+
+@media (max-width: 480px) {
+
+  html,
+  body {
+    font-size: clamp(15px, 4vw, 18px);
+    /* 모바일은 기준 폰트 좀 키움 */
+  }
+
+  .wrapper {
+    width: 95vw;
+    min-height: 65vh;
+  }
+
+  .wrapper .title {
+    font-size: clamp(1.8rem, 7vw, 2.4rem);
+    line-height: 12vh;
+    height: 14vh;
+    padding-top: 1.5vh;
+  }
+
+  .wrapper form {
+    padding: 3vh 4vw 5vh;
+  }
+
+  .wrapper form .field {
+    height: clamp(50px, 7vh, 65px);
+    margin-top: 3vh;
+  }
+
+  .wrapper form .field input {
+    font-size: clamp(1rem, 3vw, 1.1rem);
+    padding-left: 1.5rem;
+  }
+
+  .wrapper form .field label {
+    font-size: clamp(1rem, 3vw, 1.1rem);
+    left: 1.5rem;
+    padding: 0 0.4rem;
+  }
+
+  form .field input:focus~label,
+  form .field input:valid~label {
+    font-size: clamp(0.8rem, 2.5vw, 1rem);
+  }
+
+  form .signup-link {
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    margin-top: 3vh;
+  }
+
+  .resend-btn {
+    width: 80%;
+    height: clamp(45px, 6vh, 52px);
+    font-size: clamp(1rem, 3vw, 1.1rem);
+  }
+
+  .suggestions {
+    max-height: 40vh;
+  }
+
+  .suggestions li {
+    font-size: clamp(0.95rem, 3vw, 1rem);
+    padding: 1rem 1.2rem;
+  }
+}
