@@ -172,7 +172,6 @@ form .signup-link a:hover {
   html,
   body {
     font-size: clamp(15px, 4vw, 18px);
-    background-color: lightblue;
     /* 모바일은 기준 폰트 좀 키움 */
   }
 
@@ -182,7 +181,7 @@ form .signup-link a:hover {
   }
 
   .wrapper .title {
-    font-size: clamp(1.8rem, 7vw, 2.4rem);
+    font-size: clamp(2rem, 9vw, 3rem);
     line-height: 12vh;
     height: 14vh;
     padding-top: 1.5vh;
