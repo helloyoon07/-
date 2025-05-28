@@ -63,34 +63,35 @@ def heap_sort(arr):
         heapify(arr, i, 0)
 
 # autocomplete 함수 수정
+import heapq
 
 def autocomplete(trie, prefix, top_k=5):
-    memo = {}  # TrieNode 객체를 키로 하는 메모이제이션 캐시
-
-    def dfs(node, path):
-        if node in memo:
-            return memo[node]
-
-        results = []
-        if node.is_end:
-            results.append((node.freq, path))
-        for char, child in node.children.items():
-            results.extend(dfs(child, path + char))
-
-        memo[node] = results
-        return results
-
     node = trie.root
     for char in prefix:
         if char not in node.children:
             return []
         node = node.children[char]
 
-    results = dfs(node, prefix)
-    heap_sort(results)
-    results.reverse()
+    heap = []  # min-heap 크기 최대 top_k 유지, (freq, word)
 
-    return [(word, freq) for freq, word in results[:top_k]]
+    def dfs(node, path):
+        if node.is_end:
+            if len(heap) < top_k:
+                heapq.heappush(heap, (node.freq, path))
+            else:
+                # 빈도가 현재 heap 최소값보다 크면 교체
+                if node.freq > heap[0][0]:
+                    heapq.heapreplace(heap, (node.freq, path))
+
+        for c, child in node.children.items():
+            dfs(child, path + c)
+
+    dfs(node, prefix)
+
+    # 빈도 높은 순으로 정렬
+    result = sorted(heap, key=lambda x: x[0], reverse=True)
+    return [(word, freq) for freq, word in result]
+
 
 csv_path = r"unigram_freq.csv"  # 실제 파일 경로
 trie = build_trie_from_csv(csv_path)
