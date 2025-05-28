@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
-  <meta charset="utf-8">
-  <title>입력 자동완성 프로그램</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <style>
-    .warning {
-      color: red;
-      margin-top: 5px;
-      font-weight: bold;
-    }
-    .suggestions li.active {
-      background-color: #ddd;
-    }
-  </style>
-</head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>입력 자동완성 프로그램</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+      .warning {
+        color: red;
+        margin-top: 5px;
+        font-weight: bold;
+      }
+      .suggestions li.active {
+        background-color: #ddd;
+      }
+    </style>
+  </head>
 <body>
   <div class="wrapper">
     <div class="title">입력 자동완성 프로그램</div>
