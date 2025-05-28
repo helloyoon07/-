@@ -14,6 +14,8 @@ body {
   width: 100%;
   place-items: center;
   background: #f2f2f2;
+  font-size: 16px;
+  /* rem 기준 */
 }
 
 ::selection {
@@ -22,43 +24,48 @@ body {
 }
 
 .wrapper {
-  width: 380px;
+  width: 90vw;
+  max-width: 400px;
+  min-width: 260px;
+  height: auto;
+  min-height: 60vh;
   background: #fff;
-  border-radius: 15px;
-  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  box-shadow: 0 1rem 1.25rem rgba(0, 0, 0, 0.1);
   position: relative;
-  min-height: 400px;
 }
 
 .wrapper .title {
-  font-size: 30px;
+  font-size: 6vw;
+  max-font-size: 2rem;
   font-weight: 600;
   text-align: center;
-  line-height: 100px;
+  line-height: 8vh;
   color: #fff;
   user-select: none;
-  border-radius: 15px 15px 0 0;
+  border-radius: 1rem 1rem 0 0;
   background: linear-gradient(-135deg, #c850c0, #4158d0);
 }
 
 .wrapper form {
-  padding: 10px 30px 40px;
+  padding: 2vh 6vw 4vh;
 }
 
 .wrapper form .field {
   position: relative;
   width: 100%;
-  height: 50px;
-  margin-top: 20px;
+  height: 6vh;
+  min-height: 48px;
+  margin-top: 2vh;
 }
 
 .wrapper form .field input {
   width: 100%;
   height: 100%;
-  font-size: 16px;
-  padding-left: 20px;
+  font-size: 1rem;
+  padding-left: 1.2rem;
   border: 1px solid lightgrey;
-  border-radius: 25px;
+  border-radius: 2rem;
   transition: all 0.3s ease;
   outline: none;
 }
@@ -71,29 +78,30 @@ body {
 .wrapper form .field label {
   position: absolute;
   top: 50%;
-  left: 20px;
+  left: 1.2rem;
   transform: translateY(-50%);
   color: #999;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 400;
   pointer-events: none;
   transition: all 0.3s ease;
   background-color: white;
-  padding: 0 5px;
+  padding: 0 0.3rem;
 }
 
 form .field input:focus~label,
 form .field input:valid~label {
   top: 0;
-  font-size: 13px;
+  font-size: 0.8rem;
   color: #4158d0;
   transform: translateY(-50%);
 }
 
 form .signup-link {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 2vh;
   color: #262626;
+  font-size: 0.95rem;
 }
 
 form .signup-link a {
@@ -107,16 +115,17 @@ form .signup-link a:hover {
 
 .resend-btn {
   width: 70%;
-  height: 40px;
+  height: 5vh;
+  min-height: 40px;
   background: linear-gradient(-135deg, #c850c0, #4158d0);
   color: #fff;
   border: none;
-  border-radius: 25px;
-  font-size: 15px;
+  border-radius: 2rem;
+  font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin: 20px auto 0;
+  margin: 2vh auto 0;
   display: block;
 }
 
@@ -133,17 +142,16 @@ form .signup-link a:hover {
   background: white;
   border: 1px solid #ccc;
   border-top: none;
-  max-height: 240px;
-  /* 8개 * 30px */
+  max-height: 30vh;
   overflow-y: auto;
   z-index: 10;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  border-radius: 0 0 10px 10px;
+  box-shadow: 0 0.25rem 0.625rem rgba(0, 0, 0, 0.05);
+  border-radius: 0 0 0.625rem 0.625rem;
 }
 
 .suggestions li {
-  padding: 10px 15px;
-  font-size: 15px;
+  padding: 0.8rem 1rem;
+  font-size: 0.95rem;
   cursor: pointer;
   transition: background 0.2s;
 }
